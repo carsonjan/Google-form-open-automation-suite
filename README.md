@@ -1,11 +1,13 @@
 # Google-form-open-automation-suite
 Limit number of form responses, schedule form open and close, send custom reminder email, set custom closed form message.
 
+**to start using, copy the code in main.gs**
+
 ---
 ```
 // ======== SETUP BEFORE USING =========
 // step 1: create a google form
-// step 2: copy this code (everything)
+// step 2: copy code in main.gs (everything)
 // step 3: paste into: your google form > more (the 3 dots) > Apps Script > (you'll see the code editor)
 //         make use you are logged-in WITH the google account 
 //         you wish to send reminder email from (!important), usually your organization's comms acct.
