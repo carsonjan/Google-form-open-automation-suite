@@ -131,7 +131,7 @@ function limitResponses() {
 
   if (currentCount >= RESPONSE_LIMIT) {
     form.setAcceptingResponses(false);
-    form.setCustomClosedFormMessage(MESSAGE_FORM_FULL);
+    if (MESSAGE_FORM_FULL != "") form.setCustomClosedFormMessage(MESSAGE_FORM_FULL);
     Logger.log(`Limit of ${RESPONSE_LIMIT} reached. The form has been closed.`);
   }
 }
