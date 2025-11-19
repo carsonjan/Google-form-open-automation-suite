@@ -35,7 +35,8 @@ const MESSAGE_BEFORE_OPEN = ""; // only applies when OPEN_DATETIME is set. Leave
 const MESSAGE_AFTER_CLOSE = ""; // only applies when CLOSE_DATETIME is set. Leave blank ("") to disable.
 
 // C) send reminder email:
-// REQUIRES: form setting record_email_address=TRUE, OR from has a question with title including (case insensitive) "email", "e-mail", OR "e mail". If multiple questions applies the first with non-empty answer will be used.
+// REQUIRES: form setting record_email_address=TRUE, OR from has a question with title including (case insensitive) "email", "e-mail", OR "e mail". 
+// If multiple questions applies the first with non-empty answer will be used.
 
 // 1) send email at datetime, see (B) NOTE for format guidelines
 const EMAIL_SEND_AT = "";
