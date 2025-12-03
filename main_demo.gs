@@ -12,7 +12,7 @@
 //         this also add all requested triggers, to remove all triggers, run removeAllTriggers()
 
 // >> made with <3 by Carson. github.com/carsonjan/ <<
-// version: v0.2.0
+// version: v0.2.1
 
 // ======== VARIABLES ===========
 
@@ -69,6 +69,9 @@ const USER_EMAIL_ADDR = Session.getActiveUser().getEmail(); // do not modify
 function init() {
   ScriptApp.requireAllScopes(ScriptApp.AuthMode.FULL);
 
+  FormApp.getActiveForm().setPublished(true);
+  FormApp.getActiveForm().setAcceptingResponses(false);
+  
   if (OPEN_DATETIME != "") {
     checkDateFormat_(OPEN_DATETIME, "OPEN_DATETIME");
     FormApp.getActiveForm().setAcceptingResponses(false);
