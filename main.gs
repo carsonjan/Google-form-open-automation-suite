@@ -12,7 +12,7 @@
 //         this also add all requested triggers, to remove all triggers, run removeAllTriggers()
 
 // >> made with <3 by Carson. github.com/carsonjan/ <<
-// version: v0.2.1
+// version: v0.2.2
 
 // ======== VARIABLES ===========
 
@@ -64,7 +64,7 @@ function init() {
 
   FormApp.getActiveForm().setPublished(true);
   FormApp.getActiveForm().setAcceptingResponses(false);
-  
+
   if (OPEN_DATETIME != "") {
     checkDateFormat_(OPEN_DATETIME, "OPEN_DATETIME");
     FormApp.getActiveForm().setAcceptingResponses(false);
@@ -107,6 +107,7 @@ function init() {
 
   Logger.log(`> NOTE: To remove all triggers, run removeAllTriggers() function`);
   Logger.log(`>> All init finished. FORM IS READY TO USE <<`);
+  Logger.log(FormApp.getActiveForm().getPublishedUrl());
 }
 
 function removeAllTriggers() {
