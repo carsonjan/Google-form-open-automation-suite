@@ -12,7 +12,7 @@
 //         this also add all requested triggers, to remove all triggers, run removeAllTriggers()
 
 // >> made with <3 by Carson. github.com/carsonjan/ <<
-// version: v0.2.3
+// version: v0.2.4
 
 // ======== VARIABLES ===========
 
@@ -57,17 +57,19 @@ const REMINDER_EMAIL_BOTTOM = ``;
 // ============================================================================
 const DATE_REGEX = /\d{4}\/(0[1-9]|1[0-2])\/\d{2} \d{2}:\d{2}/; // do not modify
 const USER_EMAIL_ADDR = Session.getActiveUser().getEmail(); // do not modify
+const form = FormApp.getActiveForm();
 
 // request permission from google services required to run the script and add event triggers
 function init() {
   ScriptApp.requireAllScopes(ScriptApp.AuthMode.FULL);
 
-  FormApp.getActiveForm().setPublished(true);
-  FormApp.getActiveForm().setAcceptingResponses(false);
+  form.setPublished(true);
+  form.setAcceptingResponses(false);
 
-  if (OPEN_DATETIME != "") {
+  try {
+    if (OPEN_DATETIME != "") {
     checkDateFormat_(OPEN_DATETIME, "OPEN_DATETIME");
-    FormApp.getActiveForm().setAcceptingResponses(false);
+    form.setAcceptingResponses(false);
     Logger.log("Form closed by using OPEN_DATETIME in init()");
     ScriptApp.newTrigger("openForm_")
       .timeBased()
@@ -99,15 +101,20 @@ function init() {
   if (RESPONSE_LIMIT != -1) {
     if (RESPONSE_LIMIT <= 0) throw new Error("RESPONSE_LIMIT cannot be less than or equal to 0");
     ScriptApp.newTrigger("limitResponses_")
-      .forForm(FormApp.getActiveForm())
+      .forForm(form)
       .onFormSubmit()
       .create();
     Logger.log(`Trigger to limit form to ${RESPONSE_LIMIT} responses added by init()`);
   }
+  } catch (error) {
+    removeAllTriggers();
+    throw error;
+  }
+  
 
   Logger.log(`> NOTE: To remove all triggers, run removeAllTriggers() function`);
   Logger.log(`>> All init finished. FORM IS READY TO USE <<`);
-  Logger.log(FormApp.getActiveForm().getPublishedUrl());
+  Logger.log(form.getPublishedUrl());
 }
 
 function removeAllTriggers() {
@@ -129,7 +136,6 @@ function checkDateFormat_(str, varName) {
 }
 
 function setClosedFormMessage_(msg) {
-  const form = FormApp.getActiveForm();
   const wasOpen = form.isAcceptingResponses();
 
   if (!wasOpen) form.setAcceptingResponses(true);
@@ -143,7 +149,6 @@ function setClosedFormMessage_(msg) {
 function limitResponses_() {
   if (RESPONSE_LIMIT == -1) return;
 
-  const form = FormApp.getActiveForm();
   const responses = form.getResponses(); 
   const currentCount = responses.length;
   
@@ -158,14 +163,12 @@ function limitResponses_() {
 
 // open the form for response
 function openForm_() {
-  const form = FormApp.getActiveForm();
   form.setAcceptingResponses(true);
   Logger.log("form opened");
 }
 
 // close the form for response
 function closeForm_() {
-  const form = FormApp.getActiveForm();
   form.setAcceptingResponses(false);
   if (MESSAGE_AFTER_CLOSE != "") setClosedFormMessage_(MESSAGE_AFTER_CLOSE);
   Logger.log("form closed");
@@ -174,7 +177,6 @@ function closeForm_() {
 // send reminder email
 // REQUIRES: form setting record_email_address=TRUE, OR from has a question with title including (case insensitive) "email", "e-mail", OR "e mail". If multiple questions applies the first with non-empty answer will be used.
 function sendReminderEmail_() {
-  const form = FormApp.getActiveForm();
   const responses = form.getResponses();
   
   // get responses email address
