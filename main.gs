@@ -1,18 +1,18 @@
 // ======== SETUP BEFORE USING =========
-// step 1: create a google form
-// step 2: copy this code (everything)
-// step 3: paste into: your google form > more (the 3 dots) > Apps Script > (you'll see the code editor)
+// step 1: Create a google form
+// step 2: Copy this code (everything)
+// step 3: Paste into: your google form > more (the 3 dots) > Apps Script > (you'll see the code editor)
 //         make use you are logged-in WITH the google account 
 //         you wish to send reminder email from (!important), usually your organization's comms acct.
-// step 4: fill in the VARIABLES session bellow
-// step 5: select "init" from the function dropdown (top bar right to Debug)
+// step 4: Fill in the VARIABLES session bellow
+// step 5: Select "init" from the function dropdown (top bar right to Debug)
 //         click Run Button (left to Debug)
 //         this lets you grant necessary permissions to run this script (click advanced > trust)
 //         NOTE: in the warning page the "developer's email address" is instead that of the form owner
 //         this also add all requested triggers, to remove all triggers, run removeAllTriggers()
 
 // >> made with <3 by Carson. github.com/carsonjan/ <<
-// version: v0.2.2
+// version: v0.2.3
 
 // ======== VARIABLES ===========
 
@@ -51,7 +51,7 @@ const EMBED_EVENT_DETAILS = true;
 //    line breaks (return key) will reflect on your email body
 const REMINDER_EMAIL_BOTTOM = ``;
 
-// !! remember to go back and do step 6 and 7
+// !! remember to go back and do step 5
 
 // ======= CODE (do not modify below unless you know what you're doing) =======
 // ============================================================================
